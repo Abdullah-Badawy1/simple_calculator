@@ -1,0 +1,41 @@
+name: C Project CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up GCC (compiler)
+      - name: Set up GCC
+        run: sudo apt-get install build-essential
+
+      # Step 3: Compile the project
+      - name: Build the C project
+        run: make
+
+      # Step 4: Run tests
+      - name: Run tests
+        run: ./test_calculator
+
+  # Optional: Deploy step (e.g., copy to a server)
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - name: Deploy to server
+  #       run: |
+  #         scp ./calculator username@server:/path/to/deploy/
+
